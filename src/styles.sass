@@ -1,0 +1,186 @@
+$containerBackground: #d88e6c
+$textColor: #f6e7ce
+$secondaryTextColor: #f6e7ce
+$mainColor: #b44346
+$accentColor: #7c1e3b
+$activeColor: #421930
+$activeBorderColor: #e3e1e1
+
+
+@font-face 
+  font-family: 'icomoon'
+  src:  url('assets/fonts/icomoon.eot?m7drus')
+  src:  url('assets/fonts/icomoon.eot?m7drus#iefix') format('embedded-opentype'),
+  url('assets/fonts/icomoon.ttf?m7drus') format('truetype'),
+  url('assets/fonts/icomoon.woff?m7drus') format('woff'),
+  url('assets/fonts/icomoon.svg?m7drus#icomoon') format('svg')
+  font-weight: normal
+  font-style: normal
+
+*
+  box-sizing: border-box
+
+body
+  font-size: 20px
+  line-height: 30px
+  background: $containerBackground
+  background-image: url(assets/images/swirl.png)
+
+.appContainer
+
+
+.lefSidebar
+  min-width: 250px
+  float: left
+  padding: 30px
+  background-color: $accentColor
+  border: 2px solid $activeBorderColor
+  border-radius: 10px
+  margin: 20px 0 0 57px
+  text-align: center
+
+  .datePicker
+    margin-left: 12px
+    padding: 0
+    padding-left: 6px
+    font-family: 'icomoon'
+    position: relative
+    &:after
+      position: absolute
+      left: -20px
+      top: 4px
+      content: "c"
+      color: $activeBorderColor
+
+  .loadButton
+    display: block
+    margin-top: 20px
+    background-color: $mainColor
+    box-shadow: 1px 1px 2px black
+    color: $textColor
+    border: 2px solid $activeBorderColor
+    border-radius: 5px
+    width: 180px
+    text-align: center
+    cursor: pointer
+
+    &:hover
+      background-color: lighten($mainColor,8%)
+
+    &:active
+      position: relative
+      top: 1px
+      left: 1px
+      box-shadow: 0 0 0 white
+
+.card_container
+  border-left: 1px solid $activeBorderColor
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  align-items: stretch
+  height: auto
+  max-width: 1200px
+  margin: 0 auto
+
+.card-wrap
+  width: 600px
+  margin: 1em auto
+  padding: 10px 3px
+
+  box-shadow: 1px 1px 3px rgba(black,.6)
+  text-shadow: 1px 1px 0 rgba(black,.5)
+  border: 3px solid $activeBorderColor
+  border-radius: 15px
+  cursor: move
+  background-color: $mainColor
+  color: $textColor
+
+
+  .active
+    &
+      background-color: $activeColor
+      border-radius: 10px
+
+  article
+    text-align: center
+
+  .score
+    padding-left: 20px
+
+  p
+    color: $textColor
+    background-color: $activeColor
+    height: 100px
+    padding: 15px
+    margin: 0
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    border-bottom-left-radius: 10px
+    border-bottom-right-radius: 10px
+    border-top: 1px solid $textColor
+
+  .title
+    font-style: italic
+    padding-bottom: 2px
+    &:first-letter
+    
+  .score
+    float: left
+    padding-top: 6px
+
+
+  .ratingBlock:after
+    padding-bottom: 10px
+    content: "."
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+
+  .ratingButton 
+    font-family: 'icomoon' !important
+    cursor: pointer
+    float: right
+    text-align: center
+    border: 1px solid $textColor
+    background-color: $mainColor
+    box-shadow: 1px 1px 2px black
+    color: $textColor
+    margin-right: 15px
+    padding: 2px
+    width: 50px
+    border-radius: 5px
+    
+    &:hover
+      background-color: lighten($mainColor,8%)
+
+    &:active
+      position: relative
+      top: 1px
+      left: 1px
+      box-shadow: 0 0 0 white
+    
+    &.down
+
+    &.up
+      content: "\75"
+
+
+  .viewCount
+    //font-weight: bold
+
+  .creationDate
+    //font-weight: bold
+
+  .owner
+    //font-weight: bold
+
+
+[data-answered="true"]
+  background-color: $accentColor
+
+    
+
+
