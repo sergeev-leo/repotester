@@ -47,7 +47,7 @@ export const updateOrder = (isDragged, newOrder) => ({
 export function fetchQuestions(url) {
   return dispatch => {
     dispatch(requestQuestions(url))
-    return fetch(`http://api.stackexchange.com/2.2/questions?fromdate=${url}&order=desc&sort=votes&site=stackoverflow`)
+    return fetch(`http://api.stackexchange.com/2.2/search/advanced?pagesize=5&fromdate=${url}&order=desc&sort=votes&title=react-redux&site=stackoverflow`)
 			.then(response => response.json())
       .then(json => {
 				dispatch(receiveQuestions(url, json));

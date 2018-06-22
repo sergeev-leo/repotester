@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames'
 import { findDOMNode } from 'react-dom';
 import {
   DragSource,
@@ -12,6 +13,7 @@ import {
 } from 'react-dnd';
 import { XYCoord } from 'dnd-core';
 import flow from 'lodash/flow';
+import moment from 'moment';
 import styles from './styles.sass';
 
 const cardSource = {
@@ -21,6 +23,11 @@ const cardSource = {
       index: props.index,
     }
   },
+  endDrag(CardProps, DragSourceMonitor) {
+    const {id,index} = DragSourceMonitor.getItem();
+    CardProps.updateOrder(true, {id,index} );
+	}
+
 };
 
 const cardTarget = {
@@ -70,12 +77,14 @@ class Card extends React.Component {
       connectDragSource,
       connectDropTarget,
       isDragging,
+      isDbClicked,
+      isAnswered,
       creationDate,
       id,
-      isActive,
-      isAnswered,
+      activeId,
       handleMinusClick,
       handlePlusClick,
+      onClick,
       onDoubleClick,
       owner,
       score,
@@ -83,30 +92,31 @@ class Card extends React.Component {
       viewCount
     } = this.props;
 
-    const opacity = isDragging ? 0 : 1;
-
     return (
-      connectDragSource &&
-      connectDropTarget &&
       connectDragSource(
         connectDropTarget(
           <article 
+            onClick={onClick}
             onDoubleClick={onDoubleClick} 
-            className = {isActive == id ? 'active' : ''} 
-            >            
+            className = {classNames({
+              'card-wrap': true,
+              'dbclicked': isDbClicked,
+              'answered': isAnswered,
+              'active': activeId == id,
+              'opaque':  isDragging
+             })}>            
                 <section className="title">"{title}"</section>  
                 <section className="ratingBlock">
                   <span className="score">Рейтинг: {score}</span>
                   <span className="ratingButton down" onClick={handleMinusClick}>u</span>
                   <span className="ratingButton up" onClick={handlePlusClick}>d</span>
                 </section>
-
-                {isActive == id ? 
+                {activeId == id ? 
                   <p>
-                    <span>Дата создания:<span className="creationDate"> {new Date(creationDate*1000).toDateString()}</span></span>
+                    <span>Дата создания:<span className="creationDate"> {moment.unix(creationDate).toString()}</span></span>
                     <span>Автор: <span className="owner">{owner}</span></span>
                     <span>Количество просмотров: <span className="viewCount">{viewCount}</span></span>
-                  </p> : ""}
+                  </p> : null}
           </article>
         )
       )

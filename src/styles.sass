@@ -28,6 +28,13 @@ body
 
 .appContainer
 
+.spinner
+  position: relative
+  top: 200px
+  left: 50%
+  width: 150px
+  height: 150px
+  color: green
 
 .lefSidebar
   min-width: 250px
@@ -83,6 +90,7 @@ body
   max-width: 1200px
   margin: 0 auto
 
+
 .card-wrap
   width: 600px
   margin: 1em auto
@@ -96,6 +104,9 @@ body
   background-color: $mainColor
   color: $textColor
 
+
+  &.dbclicked
+    border: 1px solid rgba(black,.3)
 
   .active
     &
@@ -178,9 +189,10 @@ body
     //font-weight: bold
 
 
-[data-answered="true"]
+.answered
   background-color: $accentColor
 
-    
+.opaque
+  opacity: 0.3
 
 

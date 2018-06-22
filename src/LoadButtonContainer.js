@@ -12,10 +12,16 @@ const mapStateToLoadButtonProps = (state) => {
 
 const mapDispatchToLoadButtonProps = (dispatch, ownProps) => {
 	return { 
-		onClick: url => () => { 	
-			dispatch(Actions.fetchQuestions(url))
-		} 
-	}
+				fetchQuestions: url => dispatch(Actions.fetchQuestions(url))
+			} 
 };
 
-export default connect(mapStateToLoadButtonProps,mapDispatchToLoadButtonProps)(LoadButton);
+const mergeProps = (stateProps, dispatchProps, ownProps ) => {
+	return {
+		...stateProps,
+		...ownProps,
+		onClick: () => dispatchProps.fetchQuestions(stateProps.url)	
+	}
+}
+
+export default connect(mapStateToLoadButtonProps,mapDispatchToLoadButtonProps,mergeProps)(LoadButton);

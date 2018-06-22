@@ -9,59 +9,64 @@ const mainReducer  =  function(state = {dateToSearch: moment('2018-01-01'), isVi
 		case Actions.DATE_PICKED: {
 			if(!action.payload) return state;
 
-			const isVisible = (action.payload/1000 === state.lastSearchDate/1000) ? false : true;
-			let changes = {
+			const isVisible = action.payload !==state.lastSearchDate;
+			return {
+				...state,
 				dateToSearch: moment(action.payload), 
 				isVisible
 			}
-			const newState = Object.assign({}, state, changes);
-			return newState
 		}
 		case Actions.FETCH_QUESTIONS_SUCCESS: {
-			const fetchedData = action.payload.json.items.splice(0,5);
-			let changes = {
+			const fetchedData = action.payload.json.items;
+			return {
+				...state,
 				fetchedData, 
 				lastSearchDate:state.dateToSearch, 
-				isVisible:false
+				isVisible:false,
+				isFetching: false
 			}
-			const newState = Object.assign({}, state, changes);
-			return newState;
 		}
 		case Actions.FETCH_QUESTIONS_REQUEST: {
-			console.log('trying');
-			return state;
+			return {
+				...state,
+				isFetching: true
+			}
 		}
 
 		case Actions.RATING_UPDATE: {
-			const updatedData = state.fetchedData.slice();
-			updatedData.map( item => {
-				if(item.question_id === action.payload.id){
-					item.score += action.payload.inc ? 1 : -1; 
-				}
-			}  )
-			let changes = {
-				fetchedData: updatedData
+			return{
+				...state,
+				fetchedData: state.fetchedData.map(item => {
+					return item.question_id === action.payload.id ? 
+					 {...item, score: item.score += action.payload.inc ? -1 : 1 } : 
+					 {...item}
+				})
 			}
-			return Object.assign({}, state, changes);
 		}
 
 		case Actions.ORDER_UPDATE: {
 			if(action.payload.isDragged)
 			{
-				let changes = {
-					fetchedData: action.payload.newOrder
+				const {index:newIndex, id} = action.payload.newOrder;
+				const currentIndex = state.fetchedData.indexOf(state.fetchedData.filter(item => item.question_id == id)[0]);
+				const updatedData = state.fetchedData.slice();
+				const element = updatedData.splice(currentIndex,1);
+				updatedData.splice((newIndex),0,element[0]);
+				return {
+					...state,
+					fetchedData: updatedData
 				}
-				return Object.assign({}, state, changes);
 			}
 			else{
 				const updatedData = state.fetchedData.slice();
-				const changes = {
-					fetchedData: Object.assign( [], updatedData, {
-							[ action.payload.newOrder[0] ]: updatedData[ action.payload.newOrder[1] ],
-							[ action.payload.newOrder[1] ]: updatedData[ action.payload.newOrder[0] ]
-					})		
-				}	
-				return Object.assign({}, state, changes);
+				const [firstIndex, secondIndex] = action.payload.newOrder; 
+				const firstIndexItem = updatedData[firstIndex];
+				updatedData[firstIndex] = updatedData[secondIndex];
+				updatedData[secondIndex] = firstIndexItem;
+				return {
+					...state,
+					fetchedData: updatedData
+				}
 			}
 
 		}

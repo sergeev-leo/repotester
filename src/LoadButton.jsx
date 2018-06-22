@@ -1,15 +1,13 @@
 import React from 'react';
 
 class LoadButton extends React.Component {
-	constructor(props) {
-		super(props)
-	}
+
 	componentDidMount() {
-		this.props.onClick(this.props.url)();
+		this.props.onClick();
 	}
 
 	render() {
-		return this.props.isVisible ? <a className = "loadButton" onClick={this.props.onClick(this.props.url)}> Загрузить  </a> : ""
+		return this.props.isVisible ? <a className = "loadButton" onClick={this.props.onClick}> Загрузить  </a> : null
 	}
 }
 
