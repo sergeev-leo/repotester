@@ -9,8 +9,9 @@ class LoadButton extends React.Component {
     return this.props.isVisible
       ? (
         <div className="load-button" onClick={this.props.onClick}>
+
 Загрузить
-</div>
+                </div>
       )
       : null;
   }
