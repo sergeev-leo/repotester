@@ -5,7 +5,6 @@ import Loader from 'react-loader-spinner';
 import Card from './Card';
 
 const update = require('immutability-helper');
-import Loader from 'react-loader-spinner'
 
 class Dnd extends React.Component {
   constructor(props) {
@@ -13,48 +12,51 @@ class Dnd extends React.Component {
     this.state = {
       cards: this.props.list,
       activeId: -1,
-      isCardClicked: null,
+      doubleClickedId: null,
     };
 
+    this.singleClickTimeoutId = null;
 
     this.handleEmptyClick = (e) => {
       this.setState({
         activeId: -1,
-        isCardClicked: false,
         isDbClicked: null,
+        doubleClickedId: null,
       });
     };
 
-    this.handleSelect = (e, cardId) => {
+    this.handleClick = (e, cardId) => {
       e.stopPropagation();
 
-      const time = Date.now();
-      if (time - this.handleSelect._clickTime < 500) {
-        this.setState({ isDbClicked: cardId });
-      }
-      this.handleSelect._clickTime = time;
+      const click = () => {
+        this.setState({ activeId: cardId });
+        this.singleClickTimeoutId = null;
+      };
 
-      this.setState({ activeId: cardId });
+      if (this.singleClickTimeoutId === null) {
+        this.singleClickTimeoutId = setTimeout(click, 500);
+      } else {
+        this.handleDoubleClick(cardId);
+        clearTimeout(this.singleClickTimeoutId);
+        this.singleClickTimeoutId = null;
+      }
     };
 
-    this.handleDoubleClick = (e, index) => {
-      e.stopPropagation();
-      if (!this.state.isCardClicked) {
-        this.handleDoubleClick._values.length = 0;
-      }
-      this.setState({ isCardClicked: true });
-      this.handleDoubleClick._values.push(index);
 
-      if (this.handleDoubleClick._values.length !== 2)	return;
-
-      if (this.handleDoubleClick._values[0] !== this.handleDoubleClick._values[1]) {
-        this.props.updateOrder(false, Object.assign([], this.handleDoubleClick._values));
-        this.setState({ activeId: -1 });
+    this.handleDoubleClick = (cardId) => {
+      if (this.state.doubleClickedId === null) {
+        this.setState({ doubleClickedId: cardId });
+        return;
       }
-      this.setState({ isDbClicked: null });
-      this.handleDoubleClick._values.length = 0;
+
+      if (this.state.doubleClickedId === cardId) return;
+
+      const firstIndex = this.getIndex(this.state.doubleClickedId);
+      const secondIndex = this.getIndex(cardId);
+
+      this.props.updateOrder(false, [firstIndex, secondIndex]);
+      this.setState({ activeId: -1, doubleClickedId: null });
     };
-    this.handleDoubleClick._values = [];
 
     this.moveCard = (dragIndex, hoverIndex) => {
       const { cards } = this.state;
@@ -69,9 +71,9 @@ class Dnd extends React.Component {
       );
     };
 
-    this.getIndex = i => i === this.state.cards
+    this.getIndex = id => this.state.cards
       .indexOf(this.state.cards
-        .filter(item => item.question_id === this.state.isDbClicked)[0]);
+        .filter(item => item.question_id === id)[0]);
   }
 
   componentDidUpdate(prevProps) {
@@ -105,15 +107,14 @@ class Dnd extends React.Component {
             key={card.question_id}
           >
             <Card
-              onClick={e => this.handleSelect(e, card.question_id)}
-              onDoubleClick={e => this.handleDoubleClick(e, i)}
+              onClick={e => this.handleClick(e, card.question_id)}
               handleMinusClick={updateRating.bind(null, card.question_id, false)}
               handlePlusClick={updateRating.bind(null, card.question_id, true)}
               updateOrder={this.props.updateOrder}
               id={card.question_id}
               index={i}
               isAnswered={card.is_answered}
-              isDbClicked={this.getIndex(i)}
+              isDbClicked={this.state.doubleClickedId === card.question_id}
               activeId={this.state.activeId}
               moveCard={this.moveCard}
               creationDate={card.creation_date}

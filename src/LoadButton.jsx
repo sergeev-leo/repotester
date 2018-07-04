@@ -6,14 +6,13 @@ class LoadButton extends React.Component {
   }
 
   render() {
-    return this.props.isVisible ? (
-      <a className="load-button" onClick={this.props.onClick}>
-  {' '}
-
+    return this.props.isVisible
+      ? (
+        <div className="load-button" onClick={this.props.onClick}>
 Загрузить
-  {' '}
-</a>
-    ) : null;
+</div>
+      )
+      : null;
   }
 }
 
