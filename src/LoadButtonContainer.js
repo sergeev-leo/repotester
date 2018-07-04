@@ -1,21 +1,21 @@
-import {connect} from 'react-redux';
-import * as Actions from './actions.js';
-import LoadButton from './LoadButton.jsx';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import * as Actions from './actions';
+import LoadButton from './LoadButton';
 
+const mapStateToLoadButtonProps = state => ({
+  date: moment(state.dateToSearch).format('X'),
+  isVisible: state.isVisible,
+});
 
-const mapStateToLoadButtonProps = (state) => {
-	return	{
-				url: state.dateToSearch/1000,
-				isVisible: state.isVisible
-			}
-		};
+const mapDispatchToLoadButtonProps = (dispatch, ownProps) => ({
+  fetchQuestions: date => dispatch(Actions.fetchQuestions(date)),
+});
 
-const mapDispatchToLoadButtonProps = (dispatch, ownProps) => {
-	return { 
-		onClick: url => () => { 	
-			dispatch(Actions.fetchQuestions(url))
-		} 
-	}
-};
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...stateProps,
+  ...ownProps,
+  onClick: () => dispatchProps.fetchQuestions(stateProps.date),
+});
 
-export default connect(mapStateToLoadButtonProps,mapDispatchToLoadButtonProps)(LoadButton);
+export default connect(mapStateToLoadButtonProps, mapDispatchToLoadButtonProps, mergeProps)(LoadButton);

@@ -5,17 +5,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 class DatePickerWrapper extends React.Component {
-	constructor(props) {
-		super(props)
-	}
-	
-	componentDidMount() {
-		this.props.onChange(this.props.selected);
-	}
-
-	render() {
-		return <div className="datePicker"><DatePicker onChange={this.props.onChange} selected={this.props.selected}/></div>
-	}
+  render() {
+    return (
+      <div className="date-picker">
+        <DatePicker
+          onChange={this.props.onChange}
+          selected={this.props.selected}
+        />
+      </div>
+    );
+  }
 }
 
 export default DatePickerWrapper;

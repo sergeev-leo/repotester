@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { findDOMNode } from 'react-dom';
 import {
   DragSource,
@@ -12,7 +13,10 @@ import {
 } from 'react-dnd';
 import { XYCoord } from 'dnd-core';
 import flow from 'lodash/flow';
+import moment from 'moment';
 import styles from './styles.sass';
+
+
 
 const cardSource = {
   beginDrag(props) {
@@ -21,6 +25,11 @@ const cardSource = {
       index: props.index,
     }
   },
+  endDrag(CardProps, DragSourceMonitor) {
+    const {id,index} = DragSourceMonitor.getItem();
+    CardProps.updateOrder(true, {id,index} );
+	}
+
 };
 
 const cardTarget = {
@@ -65,17 +74,26 @@ const cardTarget = {
 
 class Card extends React.Component {
 
+  handleMinusClick = (e) => {
+    e.stopPropagation();
+    this.props.handleMinusClick()
+  }
+  handlePlusClick = (e) => {
+    e.stopPropagation();
+    this.props.handlePlusClick()
+  }
+
   render() {
     const {
       connectDragSource,
       connectDropTarget,
       isDragging,
+      isDbClicked,
+      isAnswered,
       creationDate,
       id,
-      isActive,
-      isAnswered,
-      handleMinusClick,
-      handlePlusClick,
+      activeId,
+      onClick,
       onDoubleClick,
       owner,
       score,
@@ -83,30 +101,30 @@ class Card extends React.Component {
       viewCount
     } = this.props;
 
-    const opacity = isDragging ? 0 : 1;
-
     return (
-      connectDragSource &&
-      connectDropTarget &&
       connectDragSource(
         connectDropTarget(
           <article 
+            onClick={onClick}
             onDoubleClick={onDoubleClick} 
-            className = {isActive == id ? 'active' : ''} 
-            >            
+            className = {classNames('card-wrap',{
+              'dbclicked': isDbClicked,
+              'answered': isAnswered,
+              'active': activeId == id,
+              'opaque':  isDragging
+             })}>            
                 <section className="title">"{title}"</section>  
-                <section className="ratingBlock">
+                <section className="rating-block">
                   <span className="score">Рейтинг: {score}</span>
-                  <span className="ratingButton down" onClick={handleMinusClick}>u</span>
-                  <span className="ratingButton up" onClick={handlePlusClick}>d</span>
+                  <span className="rating-button down" onClick={this.handleMinusClick}>u</span>
+                  <span className="rating-button up" onClick={this.handlePlusClick}>d</span>
                 </section>
-
-                {isActive == id ? 
+                {activeId == id ? 
                   <p>
-                    <span>Дата создания:<span className="creationDate"> {new Date(creationDate*1000).toDateString()}</span></span>
+                    <span>Дата создания:<span className="creation-date"> {moment.unix(creationDate).locale('ru').format("DD MMM YYYY")}</span></span>
                     <span>Автор: <span className="owner">{owner}</span></span>
-                    <span>Количество просмотров: <span className="viewCount">{viewCount}</span></span>
-                  </p> : ""}
+                    <span>Количество просмотров: <span className="view-count">{viewCount}</span></span>
+                  </p> : null}
           </article>
         )
       )

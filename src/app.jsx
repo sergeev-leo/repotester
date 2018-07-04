@@ -1,22 +1,16 @@
 import React from 'react';
-import DatePicker from './datePickerContainer.js';
-import LoadButton from './LoadButtonContainer.js';
-import List from './ListContainer.js';
+import DatePicker from './DatePickerContainer';
+import LoadButton from './LoadButtonContainer';
+import List from './ListContainer';
 
-import store from './store.js';
-
-const App = (props) => {
-
-		return (
-			<div className="appContainer">
-				<section className="lefSidebar">
-					<DatePicker/>
-					<LoadButton/>
-				</section>
-				<List/>
-			</div>
-		)
-	
-}
+const App = () => (
+  <div>
+    <section className="left-sidebar">
+      <DatePicker />
+      <LoadButton />
+    </section>
+    <List />
+  </div>
+);
 
 export default App;

@@ -1,15 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store.js'
-import App from './app.jsx';
+import store from './store';
+import App from './App';
 
 
 render(
-	<Provider store={ store }>
-			<App/>
-	</Provider>, document.getElementById("App")
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('App'),
 );
-
-
-

@@ -26,41 +26,45 @@ body
   background: $containerBackground
   background-image: url(assets/images/swirl.png)
 
-.appContainer
+.spinner
+  position: relative
+  top: 10rem
+  left: 50%
+  width: 7.5rem
+  height: 7.5rem
 
-
-.lefSidebar
-  min-width: 250px
+.left-sidebar
+  min-width: 12.5rem
   float: left
-  padding: 30px
+  padding: 1.5rem
   background-color: $accentColor
-  border: 2px solid $activeBorderColor
-  border-radius: 10px
-  margin: 20px 0 0 57px
+  border: 0.1rem solid $activeBorderColor
+  border-radius: 0.5rem
+  margin: 1rem 2rem 0 2rem
   text-align: center
 
-  .datePicker
-    margin-left: 12px
+  .date-picker
+    margin-left: .6rem
     padding: 0
-    padding-left: 6px
+    padding-left: .3rem
     font-family: 'icomoon'
     position: relative
     &:after
       position: absolute
-      left: -20px
-      top: 4px
+      left: -1rem
+      top: .2rem
       content: "c"
       color: $activeBorderColor
 
-  .loadButton
+  .load-button
     display: block
-    margin-top: 20px
+    margin-top: 1rem
     background-color: $mainColor
-    box-shadow: 1px 1px 2px black
+    box-shadow: .05rem .05rem .1rem black
     color: $textColor
-    border: 2px solid $activeBorderColor
-    border-radius: 5px
-    width: 180px
+    border: .1rem solid $activeBorderColor
+    border-radius: .25rem
+    width: 9rem
     text-align: center
     cursor: pointer
 
@@ -69,61 +73,66 @@ body
 
     &:active
       position: relative
-      top: 1px
-      left: 1px
+      top: .05rem
+      left: .05rem
       box-shadow: 0 0 0 white
 
-.card_container
-  border-left: 1px solid $activeBorderColor
+.card-container
+  border-left: .05rem solid $activeBorderColor
   display: flex
   flex-direction: column
   justify-content: space-around
   align-items: stretch
   height: auto
-  max-width: 1200px
+  max-width: 60rem
   margin: 0 auto
 
-.card-wrap
-  width: 600px
-  margin: 1em auto
-  padding: 10px 3px
 
-  box-shadow: 1px 1px 3px rgba(black,.6)
-  text-shadow: 1px 1px 0 rgba(black,.5)
-  border: 3px solid $activeBorderColor
-  border-radius: 15px
+.card-wrap
+  width: 30rem
+  margin: 1em auto
+  padding: .5rem .15rem
+
+  box-shadow: .05rem .05rem .15rem rgba(black,.6)
+  text-shadow: .05rem .05rem 0 rgba(black,.5)
+  border: .15rem solid $activeBorderColor
+  border-radius: .75rem
   cursor: move
   background-color: $mainColor
   color: $textColor
 
 
+  &.dbclicked
+    border: .05rem solid rgba(black,.3)
+
   .active
     &
       background-color: $activeColor
-      border-radius: 10px
+      border-radius: .5rem
 
   article
     text-align: center
 
   .score
-    padding-left: 20px
+    padding-left: 1rem
 
   p
     color: $textColor
+    font-style: italic
     background-color: $activeColor
-    height: 100px
-    padding: 15px
+    height: 6rem
     margin: 0
+    text-align: center
     display: flex
     flex-direction: column
     justify-content: space-around
-    border-bottom-left-radius: 10px
-    border-bottom-right-radius: 10px
-    border-top: 1px solid $textColor
+    border-bottom-left-radius: .5rem
+    border-bottom-right-radius: .5rem
+    border-top: .05rem solid $textColor
 
   .title
     font-style: italic
-    padding-bottom: 2px
+    padding-bottom: .1rem
     &:first-letter
     
   .score
@@ -131,25 +140,25 @@ body
     padding-top: 6px
 
 
-  .ratingBlock:after
-    padding-bottom: 10px
+  .rating-block:after
+    padding-bottom: .5rem
     content: "."
     display: block
     height: 0
     clear: both
     visibility: hidden
 
-  .ratingButton 
+  .rating-button 
     font-family: 'icomoon' !important
     cursor: pointer
     float: right
     text-align: center
-    border: 1px solid $textColor
+    border: .05rem solid $textColor
     background-color: $mainColor
-    box-shadow: 1px 1px 2px black
+    box-shadow: .05rem .05rem .1rem black
     color: $textColor
-    margin-right: 15px
-    padding: 2px
+    margin-right: .75rem
+    padding: .1rem
     width: 50px
     border-radius: 5px
     
@@ -158,8 +167,8 @@ body
 
     &:active
       position: relative
-      top: 1px
-      left: 1px
+      top: .05rem
+      left: .05rem
       box-shadow: 0 0 0 white
     
     &.down
@@ -168,19 +177,31 @@ body
       content: "\75"
 
 
-  .viewCount
-    //font-weight: bold
+  .view-count
+    color: darken($textColor,15%)
 
-  .creationDate
-    //font-weight: bold
+  .creation-date
+    color: darken($textColor,15%)
 
   .owner
-    //font-weight: bold
+    color: darken($textColor,15%)
 
 
-[data-answered="true"]
+.answered
   background-color: $accentColor
 
-    
+.opaque
+  opacity: 0.3
 
-
+.fetch-error 
+  text-align: center
+  background-color: rgba(black, .2)
+  color: $activeBorderColor
+  font-size: 2rem
+  line-height: 2rem
+  padding: 1rem
+  margin: 2.1rem 3rem
+  border: .1rem solid $accentColor
+  border-radius: .15rem
+  width: 20%
+  float: left
