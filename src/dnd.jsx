@@ -5,7 +5,7 @@ import Loader from 'react-loader-spinner';
 import Card from './Card';
 
 const update = require('immutability-helper');
-import Loader from 'react-loader-spinner'
+
 
 class Dnd extends React.Component {
   constructor(props) {
