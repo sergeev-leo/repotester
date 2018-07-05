@@ -1,8 +1,7 @@
-import moment from 'moment';
 import * as Actions from './actions';
 
 
-const mainReducer = function (state = { dateToSearch: moment('2018-01-01'), isVisible: false }, action) {
+const mainReducer = function (state = { dateToSearch: '2018-01-01', isVisible: false }, action) {
   switch (action.type) {
     case Actions.DATE_PICKED: {
       if (!action.payload) return state;
@@ -10,7 +9,7 @@ const mainReducer = function (state = { dateToSearch: moment('2018-01-01'), isVi
       const isVisible = action.payload !== state.lastSearchDate;
       return {
         ...state,
-        dateToSearch: moment(action.payload),
+        dateToSearch: action.payload.format(),
         isVisible,
       };
     }
