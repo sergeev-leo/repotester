@@ -6,7 +6,6 @@ $accentColor: #7c1e3b
 $activeColor: #421930
 $activeBorderColor: #e3e1e1
 
-
 @font-face 
   font-family: 'icomoon'
   src:  url('assets/fonts/icomoon.eot?m7drus')
@@ -17,6 +16,11 @@ $activeBorderColor: #e3e1e1
   font-weight: normal
   font-style: normal
 
+@import components/DatePicker/DatePickerWrapper
+@import components/LoadButton/LoadButton
+@import components/Dnd/Dnd
+@import components/Card/Card
+
 *
   box-sizing: border-box
 
@@ -25,13 +29,6 @@ body
   line-height: 30px
   background: $containerBackground
   background-image: url(assets/images/swirl.png)
-
-.spinner
-  position: relative
-  top: 10rem
-  left: 50%
-  width: 7.5rem
-  height: 7.5rem
 
 .left-sidebar
   min-width: 12.5rem
@@ -42,166 +39,3 @@ body
   border-radius: 0.5rem
   margin: 1rem 2rem 0 2rem
   text-align: center
-
-  .date-picker
-    margin-left: .6rem
-    padding: 0
-    padding-left: .3rem
-    font-family: 'icomoon'
-    position: relative
-    &:after
-      position: absolute
-      left: -1rem
-      top: .2rem
-      content: "c"
-      color: $activeBorderColor
-
-  .load-button
-    display: block
-    margin-top: 1rem
-    background-color: $mainColor
-    box-shadow: .05rem .05rem .1rem black
-    color: $textColor
-    border: .1rem solid $activeBorderColor
-    border-radius: .25rem
-    width: 9rem
-    text-align: center
-    cursor: pointer
-
-    &:hover
-      background-color: lighten($mainColor,8%)
-
-    &:active
-      position: relative
-      top: .05rem
-      left: .05rem
-      box-shadow: 0 0 0 white
-
-.card-container
-  border-left: .05rem solid $activeBorderColor
-  display: flex
-  flex-direction: column
-  justify-content: space-around
-  align-items: stretch
-  height: auto
-  max-width: 60rem
-  margin: 0 auto
-
-
-.card-wrap
-  width: 30rem
-  margin: 1em auto
-  padding: .5rem .15rem
-
-  box-shadow: .05rem .05rem .15rem rgba(black,.6)
-  text-shadow: .05rem .05rem 0 rgba(black,.5)
-  border: .15rem solid $activeBorderColor
-  border-radius: .75rem
-  cursor: move
-  background-color: $mainColor
-  color: $textColor
-
-
-  &.dbclicked
-    border: .05rem solid rgba(black,.3)
-
-  .active
-    &
-      background-color: $activeColor
-      border-radius: .5rem
-
-  article
-    text-align: center
-
-  .score
-    padding-left: 1rem
-
-  p
-    color: $textColor
-    font-style: italic
-    background-color: $activeColor
-    height: 6rem
-    margin: 0
-    text-align: center
-    display: flex
-    flex-direction: column
-    justify-content: space-around
-    border-bottom-left-radius: .5rem
-    border-bottom-right-radius: .5rem
-    border-top: .05rem solid $textColor
-
-  .title
-    font-style: italic
-    padding-bottom: .1rem
-    &:first-letter
-    
-  .score
-    float: left
-    padding-top: 6px
-
-
-  .rating-block:after
-    padding-bottom: .5rem
-    content: "."
-    display: block
-    height: 0
-    clear: both
-    visibility: hidden
-
-  .rating-button 
-    font-family: 'icomoon' !important
-    cursor: pointer
-    float: right
-    text-align: center
-    border: .05rem solid $textColor
-    background-color: $mainColor
-    box-shadow: .05rem .05rem .1rem black
-    color: $textColor
-    margin-right: .75rem
-    padding: .1rem
-    width: 50px
-    border-radius: 5px
-    
-    &:hover
-      background-color: lighten($mainColor,8%)
-
-    &:active
-      position: relative
-      top: .05rem
-      left: .05rem
-      box-shadow: 0 0 0 white
-    
-    &.down
-
-    &.up
-      content: "\75"
-
-
-  .view-count
-    color: darken($textColor,15%)
-
-  .creation-date
-    color: darken($textColor,15%)
-
-  .owner
-    color: darken($textColor,15%)
-
-
-.answered
-  background-color: $accentColor
-
-.opaque
-  opacity: 0.3
-
-.fetch-error 
-  text-align: center
-  background-color: rgba(black, .2)
-  color: $activeBorderColor
-  font-size: 2rem
-  line-height: 2rem
-  padding: 1rem
-  margin: 2.1rem 3rem
-  border: .1rem solid $accentColor
-  border-radius: .15rem
-  width: 20%
-  float: left

@@ -1,0 +1,103 @@
+.card-wrap
+  width: 30rem
+  margin: 1em auto
+  padding: .5rem .15rem
+
+  box-shadow: .05rem .05rem .15rem rgba(black,.6)
+  text-shadow: .05rem .05rem 0 rgba(black,.5)
+  border: .15rem solid $activeBorderColor
+  border-radius: .75rem
+  cursor: move
+  background-color: $mainColor
+  color: $textColor
+
+  &.dbclicked
+    border: .05rem solid rgba(black,.3)
+
+  .active
+    &
+      background-color: $activeColor
+      border-radius: .5rem
+
+  article
+    text-align: center
+
+  .score
+    padding-left: 1rem
+
+  p
+    color: $textColor
+    font-style: italic
+    background-color: $activeColor
+    height: 6rem
+    margin: 0
+    text-align: center
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    border-bottom-left-radius: .5rem
+    border-bottom-right-radius: .5rem
+    border-top: .05rem solid $textColor
+
+  .title
+    font-style: italic
+    padding-bottom: .1rem
+    &:first-letter
+    
+  .score
+    float: left
+    padding-top: 6px
+
+
+  .rating-block:after
+    padding-bottom: .5rem
+    content: "."
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+
+  .rating-button 
+    font-family: 'icomoon' !important
+    cursor: pointer
+    float: right
+    text-align: center
+    border: .05rem solid $textColor
+    background-color: $mainColor
+    box-shadow: .05rem .05rem .1rem black
+    color: $textColor
+    margin-right: .75rem
+    padding: .1rem
+    width: 50px
+    border-radius: 5px
+    
+    &:hover
+      background-color: lighten($mainColor,8%)
+
+    &:active
+      position: relative
+      top: .05rem
+      left: .05rem
+      box-shadow: 0 0 0 white
+    
+    &.down
+
+    &.up
+      content: "\75"
+
+
+  .view-count
+    color: darken($textColor,15%)
+
+  .creation-date
+    color: darken($textColor,15%)
+
+  .owner
+    color: darken($textColor,15%)
+
+
+.answered
+  background-color: $accentColor
+
+.opaque
+  opacity: 0.3

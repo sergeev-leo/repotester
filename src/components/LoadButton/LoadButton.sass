@@ -1,0 +1,20 @@
+.load-button
+	display: block
+	margin-top: 1rem
+	background-color: $mainColor
+	box-shadow: .05rem .05rem .1rem black
+	color: $textColor
+	border: .1rem solid $activeBorderColor
+	border-radius: .25rem
+	width: 9rem
+	text-align: center
+	cursor: pointer
+
+	&:hover
+		background-color: lighten($mainColor,8%)
+
+	&:active
+		position: relative
+		top: .05rem
+		left: .05rem
+		box-shadow: 0 0 0 white
