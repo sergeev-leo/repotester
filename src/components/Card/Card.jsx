@@ -14,9 +14,6 @@ import {
 import { XYCoord } from 'dnd-core';
 import flow from 'lodash/flow';
 import moment from 'moment';
-import styles from './styles.sass';
-
-
 
 const cardSource = {
   beginDrag(props) {
