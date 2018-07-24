@@ -1,12 +1,13 @@
+import moment from 'moment';
 import * as Actions from '../actions/index';
 
 
-const mainReducer = function (state = { dateToSearch: '2018-01-01', isVisible: false }, action) {
+const mainReducer = function (state = { dateToSearch: moment('2018-01-01').format(), isVisible: false }, action) {
   switch (action.type) {
     case Actions.DATE_PICKED: {
       if (!action.payload) return state;
 
-      const isVisible = action.payload !== state.lastSearchDate;
+      const isVisible = action.payload.format() !== state.lastSearchDate;
       return {
         ...state,
         dateToSearch: action.payload.format(),
@@ -51,8 +52,7 @@ const mainReducer = function (state = { dateToSearch: '2018-01-01', isVisible: f
       if (action.payload.isDragged) {
         const { index: newIndex, id } = action.payload.newOrder;
         const currentIndex = state.fetchedData
-          .indexOf(state.fetchedData
-            .filter(item => item.question_id === id)[0]);
+          .findIndex(item => item.question_id === id);
         const updatedData = state.fetchedData.slice();
         const element = updatedData.splice(currentIndex, 1);
         updatedData.splice((newIndex), 0, element[0]);

@@ -1,14 +1,14 @@
 import React from 'react';
-import DatePicker from '../containers/DatePickerContainer';
-import LoadButton from '../containers/LoadButtonContainer';
+import DatePickerContainer from '../containers/DatePickerContainer';
+import LoadButtonContainer from '../containers/LoadButtonContainer';
 import List from '../containers/ListContainer';
-import styles from '../styles.sass';
+import '../styles.sass';
 
 const App = () => (
   <div>
     <section className="left-sidebar">
-      <DatePicker />
-      <LoadButton />
+      <DatePickerContainer />
+      <LoadButtonContainer />
     </section>
     <List />
   </div>

@@ -20,7 +20,6 @@ class Dnd extends React.Component {
     this.handleEmptyClick = (e) => {
       this.setState({
         activeId: -1,
-        isDbClicked: null,
         doubleClickedId: null,
       });
     };
@@ -72,8 +71,7 @@ class Dnd extends React.Component {
     };
 
     this.getIndex = id => this.state.cards
-      .indexOf(this.state.cards
-        .filter(item => item.question_id === id)[0]);
+      .findIndex(item => item.question_id === id);
   }
 
   componentDidUpdate(prevProps) {

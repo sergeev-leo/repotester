@@ -1,9 +1,7 @@
 import React from 'react';
-import { loadState } from '../../sessionStorage';
 
 class LoadButton extends React.Component {
   componentDidMount() {
-    if (loadState('state') && loadState('state').fetchedData) return;
     this.props.onClick();
   }
 
